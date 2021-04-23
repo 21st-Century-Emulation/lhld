@@ -15,8 +15,8 @@ end
 post '/api/v1/execute' do
   request.body.rewind
   data = JSON.parse request.body.read
-  high_byte = params['highByte'].to_i
-  low_byte = params['lowByte'].to_i
+  high_byte = params['operand2'].to_i
+  low_byte = params['operand1'].to_i
   address = (high_byte << 8) | low_byte
 
   data['state']['l'] = HTTParty.get("#{READ_MEMORY_API}?address=#{address}").to_i
