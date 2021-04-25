@@ -19,8 +19,8 @@ post '/api/v1/execute' do
   low_byte = params['operand1'].to_i
   address = (high_byte << 8) | low_byte
 
-  data['state']['l'] = HTTParty.get("#{READ_MEMORY_API}?address=#{address}").to_i
-  data['state']['h'] = HTTParty.get("#{READ_MEMORY_API}?address=#{(address + 1) & 0xFFFF}").to_i
+  data['state']['l'] = HTTParty.get("#{READ_MEMORY_API}?id=#{data['id']}&address=#{address}").to_i
+  data['state']['h'] = HTTParty.get("#{READ_MEMORY_API}?id=#{data['id']}&address=#{(address + 1) & 0xFFFF}").to_i
   data['state']['cycles'] = data['state']['cycles'].to_i + 16
 
   content_type :json
